@@ -1,6 +1,6 @@
 import React, { Component } from 'react'; 
 import Layout from '../../components/layout';
-import { Form, Button, Input, Message } from 'semantic-ui-react';
+import { Form, Button, Input, Message, Label } from 'semantic-ui-react';
 import factory from '../../ethereum/factory';
 import web3 from '../../ethereum/web3';
 import { Router } from '../../routes';
@@ -36,7 +36,7 @@ class CampaignNew extends Component {
 
                 <Form onSubmit={this.onSubmit} error={!!this.state.errorMessage}>
                     <Form.Field>
-                        <label>Minimum Contribution</label>
+                        <Label>Minimum Contribution</Label>
                         <Input label="wei" 
                         labelPosition="right" 
                         placeholder='ex. 1000000000'
