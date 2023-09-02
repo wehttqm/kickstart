@@ -22,7 +22,7 @@ class CampaignIndex extends Component {
         fluid: true,
       };
     });
-    return <Card.Group items={items} />;
+    return <Card.Group items={items} style= {{overflowWrap: 'break-word'}}/>;
   }
   render() {
     return (
