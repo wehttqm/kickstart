@@ -1,27 +1,45 @@
-import React from 'react';
-import { Menu } from 'semantic-ui-react';
-import { Link } from '../routes';
+import React, { Component } from 'react';
+import { Menu, Segment, Icon, } from 'semantic-ui-react';
+import { Link, Router } from '../routes';
+import web3 from '../ethereum/web3';
 
-export default () => {
-    return (
-        <Menu style={{marginTop: '10px'}}>
-            <Link route='/'>    
-                <a className="item">
-                    CrowdCoin
-                </a>
-            </Link>
+class Header extends Component {
+    state ={
+        icon: 'x',
+        status: 'Disconnected'
+    }
 
+    getStatus = async () => {
+        const accounts = await web3.eth.getAccounts();
+        if (accounts[0]) {
+            this.setState({icon: 'check', status: 'Connected'});
 
-            <Menu.Menu position="right">
-            <Link route='/'>    
-                <a className="item">Campaigns</a>
-            </Link>
+        }
+    }
 
-            <Link route='/campaigns/new'>    
-                <a className="item">+</a>
-            </Link>
+    render() {
+        this.getStatus();
+        return (
+            <Menu secondary style={{marginTop: '10px'}}>
+                <Link route='/'>    
+                    <a className="item">
+                        CrowdCoin
+                    </a>
+                </Link>
 
-            </Menu.Menu>
-        </Menu>
-    )
+                <Link route='/campaigns/new'>    
+                    <a className="item">+</a>
+                </Link>
+
+                <Menu.Menu position="right">
+                    <Segment basic floated='right'>
+                        <Icon name={this.state.icon}></Icon>
+                        {this.state.status}
+                    </Segment>
+                </Menu.Menu>
+            </Menu>
+        );
+    }
 }
+
+export default Header;
