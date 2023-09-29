@@ -6,14 +6,19 @@ import web3 from '../ethereum/web3';
 class Header extends Component {
     state ={
         icon: 'x',
-        status: 'Disconnected'
+        status: 'Disconnected',
+        isConnected: false
     }
 
     getStatus = async () => {
         const accounts = await web3.eth.getAccounts();
         if (accounts[0]) {
-            this.setState({icon: 'check', status: 'Connected'});
+            this.setState({icon: 'check', status: 'Connected', isConnected: true});
 
+
+        } else {
+            this.setState({icon: 'x', status: 'Disconnected', isConnected: false});
+            this.setState({isConnected: true})
         }
     }
 
@@ -32,10 +37,10 @@ class Header extends Component {
                 </Link>
 
                 <Menu.Menu position="right">
-                    <Segment basic floated='right'>
+                    {this.state.isConnected && <Segment basic floated='right'>
                         <Icon name={this.state.icon}></Icon>
                         {this.state.status}
-                    </Segment>
+                    </Segment> }
                 </Menu.Menu>
             </Menu>
         );
